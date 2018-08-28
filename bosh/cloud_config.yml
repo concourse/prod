@@ -1,0 +1,280 @@
+---
+azs:
+- name: z1
+  cloud_properties: {zone: us-central1-f}
+- name: z2
+  cloud_properties: {zone: us-central1-b}
+
+networks:
+- name: prop
+  subnets:
+  - az: z1
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: prop
+      tags:
+      - internal
+      - concourse-web
+  type: dynamic
+
+- name: web
+  type: dynamic
+  subnets:
+  - az: z1
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: internal
+      tags: [internal, concourse-web]
+
+- name: private
+  type: dynamic
+  subnets:
+  - azs: [z1, z2]
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: internal
+      tags: [internal]
+
+- name: vault
+  type: manual
+  subnets:
+  - range: 10.3.0.0/24
+    gateway: 10.3.0.1
+    az: z1
+    static: [10.3.0.2]
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: vault
+      tags: [vault]
+
+- name: metrics
+  type: manual
+  subnets:
+  - range: 10.2.0.0/24
+    gateway: 10.2.0.1
+    az: z1
+    static: [10.2.0.2, 10.2.0.3]
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: metrics
+      tags: [internal]
+
+- name: grafana
+  type: dynamic
+  subnets:
+  - az: z1
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: internal
+      tags: [internal, concourse-metrics]
+
+- name: git-docker-minio
+  type: manual
+  subnets:
+  - range: 10.3.0.0/24
+    gateway: 10.3.0.1
+    az: z1
+    static: [10.3.0.2, 10.3.0.3, 10.3.0.4]
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: internal-manual
+      tags: [internal]
+
+- name: testflight
+  type: manual
+  subnets:
+  - az: z1
+    range: 10.244.0.0/16
+    gateway: 10.244.0.1
+    static:
+    - 10.244.15.2 # testflight
+    - 10.244.16.2 # upgrade
+    - 10.244.17.2 # downgrade
+    - 10.244.18.2 # web prs
+    - 10.244.19.2 # wats
+    - 10.244.20.2 # wats (periodic)
+    - 10.244.21.2 # watsjs (periodic)
+    - 10.244.22.2 # testflight (periodic)
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: testflight
+      tags: [internal]
+
+- name: topgun
+  type: dynamic
+  subnets:
+  - az: z1
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: topgun
+      tags: [internal]
+
+- name: windows
+  subnets:
+  - az: z1
+    cloud_properties:
+      ephemeral_external_ip: true
+      network_name: bosh
+      subnetwork_name: windows
+      tags:
+      - internal
+      - windows
+    gateway: 10.95.0.1
+    range: 10.95.0.0/24
+    static:
+    - 10.95.0.2
+  type: manual
+
+disk_types:
+- name: large
+  disk_size: 102400
+  cloud_properties: {type: pd-ssd}
+
+- name: small
+  disk_size: 10240
+  cloud_properties: {type: pd-ssd}
+
+- name: extra-large
+  disk_size: 204800
+  cloud_properties: {type: pd-ssd}
+
+- name: super-extra-large
+  disk_size: 1024000
+  cloud_properties: {type: pd-ssd}
+
+vm_types:
+- name: web
+  cloud_properties:
+    cpu: 2
+    ram: 8192
+    root_disk_size_gb: 20
+    root_disk_type: pd-ssd
+
+- name: database
+  cloud_properties:
+    cpu: 8
+    ram: 8192
+    root_disk_size_gb: 20
+    root_disk_type: pd-ssd
+
+- name: worker-prop
+  cloud_properties:
+    cpu: 8
+    ram: 16384
+    root_disk_size_gb: 500
+    root_disk_type: pd-ssd
+
+- name: worker
+  cloud_properties:
+    cpu: 8
+    ram: 16384
+    root_disk_size_gb: 1000
+    root_disk_type: pd-ssd
+
+- name: wings_worker
+  cloud_properties:
+    cpu: 4
+    ram: 16384
+    root_disk_size_gb: 1000
+    root_disk_type: pd-ssd
+
+- name: testflight
+  cloud_properties:
+    cpu: 4
+    ram: 8192
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+
+    # rather than `az: z1` on subnet, so we can reuse testflight manifest w/
+    # bosh-lite dev flow
+    zone: us-central1-f
+
+- name: topgun
+  cloud_properties:
+    cpu: 1
+    ram: 4096
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+
+    # rather than `az: z1` on subnet, so we can reuse testflight manifest w/
+    # bosh-lite dev flow
+    zone: us-central1-f
+
+- name: grafana
+  network: concourse
+  cloud_properties:
+    cpu: 4
+    ram: 8192
+
+- name: vault
+  network: concourse
+  cloud_properties:
+    cpu: 4
+    ram: 8192
+
+- name: riemann
+  network: concourse
+  cloud_properties:
+    cpu: 4
+    ram: 8192
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+
+- name: influxdb
+  network: concourse
+  cloud_properties:
+    cpu: 4
+    ram: 26624
+
+- name: airbus
+  cloud_properties:
+    cpu: 2
+    ram: 8192
+    root_disk_size_gb: 20
+    root_disk_type: pd-ssd
+
+- name: tiny
+  cloud_properties:
+    cpu: 1
+    ram: 2048
+
+vm_extensions:
+- name: concourse-web-target-pool
+  cloud_properties:
+    target_pool: concourse-web-target-pool
+
+- name: vault-target-pool
+  cloud_properties:
+    target_pool: vault-target-pool
+
+- name: wings-web-target-pool
+  cloud_properties:
+    target_pool: wings-web-target-pool
+
+- name: airbus-web-target-pool
+  cloud_properties:
+    target_pool: airbus-web-target-pool
+
+- name: concourse-metrics-target-pool
+  cloud_properties:
+    target_pool: concourse-metrics-target-pool
+
+- name: concourse-metrics-prop-target-pool
+  cloud_properties:
+    target_pool: concourse-metrics-prop-target-pool
+
+- name: prop-web-target-pool
+  cloud_properties:
+    target_pool: prop-web-target-pool
+
+compilation:
+  workers: 3
+  network: private
+  reuse_compilation_vms: true
+  az: z2
+  cloud_properties:
+    cpu: 2
+    ram: 8192
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+    preemptible: true

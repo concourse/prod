@@ -1,0 +1,8 @@
+- type: replace
+  path: /resource_pools/name=vms/cloud_properties?
+  value:
+    zone: ((zone))
+    cpu: 8
+    ram: 8192
+    root_disk_size_gb: 40
+    root_disk_type: pd-standard

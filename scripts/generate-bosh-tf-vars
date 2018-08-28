@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cat <<EOF
+external_ip: $(terraform output --state iaas/terraform.tfstate director-ip)
+EOF

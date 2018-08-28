@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# manually configure /concourse-prod-bosh/concourse-wings/atc_tls with cert from SSLMate
+# manually configure /concourse-prod-bosh/concourse-wings/db_ca_cert with cert from Cloud SQL
+
+# take the public value here and hand it over to teams with external workers
+credhub generate -n '/concourse-prod-bosh/concourse-wings/tsa_host_key' -t ssh -k 4096
+
+# configure this in cloudsql
+credhub generate -n '/concourse-prod-bosh/concourse-wings/db_password' -t password
+
+# keep this somewhere safe; if we need to rotate it, we'll need the old value in order to migrate
+# currently in LastPass as 4704813030773621593 (Shared-Concourse/Wings Encryption Key)
+credhub generate -n '/concourse-prod-bosh/concourse-wings/encryption_key' -t password
+
+# set these to values from GitHub
+# credhub set -n '/concourse-prod-bosh/concourse-wings/github_client_id' -t value
+# credhub set -n '/concourse-prod-bosh/concourse-wings/github_client_secret' -t password
+
+# everything else can be generated

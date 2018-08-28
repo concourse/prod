@@ -1,0 +1,7 @@
+terraform.tfstate # this is remote now, but let's ignore it for safety
+terraform.tfstate.backup
+terraform.key.json
+bosh-tf-vars.yml
+bosh-deployment-vars.yml
+bosh-generated-creds.yml
+keypair/id_rsa

@@ -1,0 +1,18 @@
+releases:
+- {name: telegraf, version: 2}
+
+addons:
+- name: telegraf
+  jobs:
+  - name: telegraf
+    release: telegraf
+  properties:
+    influxdb:
+      url: http://10.2.0.2:8086
+      database: telegraf
+      username: concourse
+      password: concourse
+  include:
+    stemcell:
+    - os: ubuntu-trusty
+    - os: ubuntu-xenial

@@ -1,0 +1,8 @@
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=uaa/properties/uaa/clients/ci?
+  value:
+    override: true
+    authorized-grant-types: client_credentials
+    scope: ""
+    authorities: bosh.admin
+    secret: ((ci_client_secret))

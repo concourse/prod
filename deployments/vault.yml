@@ -1,0 +1,36 @@
+---
+name: vault
+
+stemcells:
+- alias: trusty
+  os: ubuntu-trusty
+  version: latest
+
+releases:
+- name: vault
+  version: latest
+
+instance_groups:
+- name: vault
+  instances: 1
+  vm_type: vault
+  stemcell: trusty
+  networks:
+  - name: vault
+    static_ips: [10.3.0.2]
+  azs: [z1]
+  persistent_disk_type: large
+  jobs:
+  - release: vault
+    name: vault
+    properties:
+      tls:
+        certificate: ((vault_cert.certificate))
+        private_key: ((vault_cert.private_key))
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000

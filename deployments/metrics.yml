@@ -1,0 +1,101 @@
+---
+name: concourse-metrics
+
+stemcells:
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest
+
+releases:
+- name: influxdb
+  version: latest
+- name: grafana
+  version: latest
+
+influx_db:
+  ip: &influxdb_ip 10.2.0.2
+  url: &influxdb_url http://10.2.0.2:8086
+
+instance_groups:
+- name: influxdb
+  instances: 1
+  vm_type: influxdb
+  stemcell: xenial
+  networks:
+  - name: metrics
+    static_ips: [*influxdb_ip]
+  azs: [z1]
+  persistent_disk_type: super-extra-large
+  jobs:
+  - release: influxdb
+    name: influxdb
+    properties:
+      influxdb:
+        database: telegraf
+        user: concourse
+        password: concourse
+        data:
+          index_version: tsi1
+
+- name: grafana
+  instances: 1
+  vm_type: grafana
+  stemcell: xenial
+  networks: [{name: grafana}]
+  azs: [z1]
+  vm_extensions: [concourse-metrics-target-pool]
+  persistent_disk_type: large
+  jobs:
+  - release: grafana
+    name: grafana
+    properties:
+      grafana:
+        listen_port: 443
+
+        root_url: https://metrics.concourse-ci.org
+
+        admin_username: admin
+        admin_password: ((admin_password))
+
+        datasource:
+          url: *influxdb_url
+          name: concourse production
+          database_type: influxdb
+          user: concourse
+          password: concourse
+          database_name: concourse
+
+        external_image_storage:
+          s3:
+            bucket_url: https://concourse-grafana-alerts.s3-us-east-2.amazonaws.com
+            access_key: ((external_storage.username))
+            secret_key: ((external_storage.password))
+
+        ssl:
+          cert: ((tls.certificate))
+          key: ((tls.private_key))
+
+        users:
+          auto_assign_organization_role: Editor
+
+        auth:
+          anonymous:
+            enabled: true
+
+          github:
+            enabled: true
+            client_id: ((github_auth_client.username))
+            client_secret: ((github_auth_client.password))
+            team_ids: [1652453]
+            allowed_organizations: [concourse]
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+
+variables:
+- name: admin_password
+  type: password
