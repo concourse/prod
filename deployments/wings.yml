@@ -3,9 +3,9 @@ name: concourse-wings
 
 releases:
 - name: concourse
-  version: 4.0.1-rc.34
+  version: latest
 - name: garden-runc
-  version: 1.16.2
+  version: latest
 - name: telegraf-agent
   version: latest
 - name: syslog
