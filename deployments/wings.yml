@@ -66,6 +66,9 @@ instance_groups:
         client_id: ((github_client_id))
         client_secret: ((github_client_secret))
 
+      add_local_users:
+      - "admin:((admin_password))"
+
       main_team:
         auth:
           github:
