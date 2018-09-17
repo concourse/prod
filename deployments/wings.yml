@@ -132,6 +132,9 @@ instance_groups:
       - team: bam
         ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCuCcQ5xHxUSCnTHUgx6mh2Cas4jiIjkkxXVGX1Yv8iNed2rgniCXmvzxYQQwp8pSnKu+phx3D/Sj7XcZ5lWHt9kjNicrJQmzP0ClWk1jxYsNFd4rcI/cCW+GZbl+g2+Wr7MR4vNQPPgnxW9jORbAKmua+vxSFd2mf/aK5WlQEuEe6PHLWPh4fi+fp5If5Ar7LM2FSmbbsC73Ga3q2Bm8CKlanPKgKOg1cBXjmANGlXosUzDgyjhe0v6aitGrHcfSg8XLo0S4KTwVloWxko0ZeeCGDHJzqeTJ151sERZmqtnsTCK0dCnMqijeLOYLMwTvXh+uuBIBeTw1RyR1nJmHtt
 
+      - team: mormont-pcf
+        ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyo2/1vuyuQkIwCGou5K0CtSZJQbAC0KIeDnudoML7ZyMmHkux1oRaJrQwBg4falWRspVQY7hNARA0rw8VWVOfVx8ZLq7E8K7EbxSbQvI0fQtlU/V6bUt3PJUfLIUcAI0sx2qCPlGwHxsgENVVozqUz/eS2KZIb33f5+kyZhtdfT4HoSRQk2df0XbPWMQAlooylBJjR2Gk6ng/cJO1hUu7OiSJE6MJQ0XUsTgRjbZe3YC3pF849F1TPTGWYbeIQnbG0EdxGy1ysBZSqwUcQy++KAanW4eZp1yKF3bDna/zoVl7p9Z4iPbtaZJQUo7h2xb6w6ZKi32elUdt84mRn88l
+
   - name: telegraf-agent
     release: telegraf-agent
     properties:
