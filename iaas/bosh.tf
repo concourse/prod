@@ -1,9 +1,3 @@
-provider "google" {
-  credentials = "${file("${path.module}/terraform.key.json")}"
-  project = "${var.projectid}"
-  region = "${var.region}"
-}
-
 resource "google_compute_network" "bosh" {
   name = "bosh"
   auto_create_subnetworks = "false"
