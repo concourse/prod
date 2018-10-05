@@ -2,10 +2,6 @@
 
 set -e -u
 
-projectid=cf-concourse-production
-region=us-central1
-zone=us-central1-f
-
 lpass show 'Shared-Concourse/Prod GCP Key' --notes > keypair/id_rsa
 chmod 0600 keypair/id_rsa
 
@@ -13,7 +9,7 @@ lpass show 'Shared-Concourse/Prod GCP Credentials' --notes > iaas/terraform.key.
 
 pushd iaas
   terraform init
-  terraform apply -var projectid=${projectid} -var region=${region} -var zone=${zone}
+  terraform apply
 popd
 
 ./scripts/generate-bosh-tf-vars \
