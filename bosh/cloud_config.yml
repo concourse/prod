@@ -80,24 +80,13 @@ networks:
       subnetwork_name: internal-manual
       tags: [internal]
 
-- name: testflight
-  type: manual
+- name: test
+  type: dynamic
   subnets:
   - az: z1
-    range: 10.244.0.0/16
-    gateway: 10.244.0.1
-    static:
-    - 10.244.15.2 # testflight
-    - 10.244.16.2 # upgrade
-    - 10.244.17.2 # downgrade
-    - 10.244.18.2 # web prs
-    - 10.244.19.2 # wats
-    - 10.244.20.2 # wats (periodic)
-    - 10.244.21.2 # watsjs (periodic)
-    - 10.244.22.2 # testflight (periodic)
     cloud_properties:
       network_name: bosh
-      subnetwork_name: testflight
+      subnetwork_name: test
       tags: [internal]
 
 - name: topgun
@@ -178,7 +167,7 @@ vm_types:
     root_disk_size_gb: 1000
     root_disk_type: pd-ssd
 
-- name: testflight
+- name: test
   cloud_properties:
     cpu: 4
     ram: 8192

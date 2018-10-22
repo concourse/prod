@@ -31,8 +31,8 @@ resource "google_compute_subnetwork" "vault" {
   network       = "${google_compute_network.bosh.self_link}"
 }
 
-resource "google_compute_subnetwork" "testflight" {
-  name          = "testflight"
+resource "google_compute_subnetwork" "test" {
+  name          = "test"
   ip_cidr_range = "10.244.0.0/16"
   network       = "${google_compute_network.bosh.self_link}"
 }
