@@ -7,6 +7,7 @@ azs:
 
 networks:
 - name: prop
+  type: dynamic
   subnets:
   - az: z1
     cloud_properties:
@@ -15,7 +16,6 @@ networks:
       tags:
       - internal
       - concourse-web
-  type: dynamic
 
 - name: web
   type: dynamic
@@ -97,22 +97,6 @@ networks:
       network_name: bosh
       subnetwork_name: topgun
       tags: [internal]
-
-- name: windows
-  subnets:
-  - az: z1
-    cloud_properties:
-      ephemeral_external_ip: true
-      network_name: bosh
-      subnetwork_name: windows
-      tags:
-      - internal
-      - windows
-    gateway: 10.95.0.1
-    range: 10.95.0.0/24
-    static:
-    - 10.95.0.2
-  type: manual
 
 disk_types:
 - name: large
