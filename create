@@ -18,9 +18,11 @@ popd
 lpass show 'Shared-Concourse/Prod bosh-deployment-vars.yml' --notes \
   > bosh/bosh-deployment-vars.yml
 
+BOSH_GENERATED_CREDS=$(mktemp /tmp/bosh_generated_vars.XXXXXX)
+
 bosh create-env bosh-deployment/bosh.yml \
   --state bosh/bosh-state.json \
-  --vars-store bosh/bosh-generated-creds.yml \
+  --vars-store $BOSH_GENERATED_CREDS \
   -o bosh-deployment/gcp/cpi.yml \
   -v director_name=concourse-prod-bosh \
   -v internal_cidr=10.0.0.0/29 \
