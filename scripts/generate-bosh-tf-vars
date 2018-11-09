@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pushd iaas
+pushd iaas > /dev/null
   cat <<EOF
 external_ip: $(terraform output director-ip)
 EOF
-popd
+popd > /dev/null
