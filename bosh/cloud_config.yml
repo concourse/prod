@@ -244,6 +244,7 @@ compilation:
   workers: 3
   network: private
   reuse_compilation_vms: true
+  orphan_workers: true
   az: z2
   cloud_properties:
     cpu: 2
