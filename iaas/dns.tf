@@ -20,7 +20,7 @@ resource "google_dns_record_set" "concourse-ci-org-dns" {
 
   managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
 
-  rrdatas = ["52.3.168.204", "52.54.190.15"]
+  rrdatas = ["54.164.197.244", "52.201.185.62"]
 }
 
 resource "google_dns_record_set" "www-concourse-ci-org-dns" {
