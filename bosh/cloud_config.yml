@@ -98,6 +98,17 @@ networks:
       subnetwork_name: topgun
       tags: [internal]
 
+- name: windows
+  type: manual
+  subnets:
+  - range: 10.95.0.0/24
+    gateway: 10.95.0.1
+    az: z1
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: windows
+      tags: [internal]
+
 disk_types:
 - name: large
   disk_size: 102400
