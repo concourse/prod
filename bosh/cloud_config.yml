@@ -89,15 +89,6 @@ networks:
       subnetwork_name: test
       tags: [internal]
 
-- name: topgun
-  type: dynamic
-  subnets:
-  - az: z1
-    cloud_properties:
-      network_name: bosh
-      subnetwork_name: topgun
-      tags: [internal]
-
 - name: windows
   type: manual
   subnets:
@@ -166,17 +157,6 @@ vm_types:
   cloud_properties:
     cpu: 4
     ram: 8192
-    root_disk_size_gb: 100
-    root_disk_type: pd-ssd
-
-    # rather than `az: z1` on subnet, so we can reuse testflight manifest w/
-    # bosh-lite dev flow
-    zone: us-central1-f
-
-- name: topgun
-  cloud_properties:
-    cpu: 1
-    ram: 4096
     root_disk_size_gb: 100
     root_disk_type: pd-ssd
 
