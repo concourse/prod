@@ -1,5 +1,5 @@
 releases:
-- {name: telegraf, version: 2}
+- {name: telegraf, version: 4}
 
 addons:
 - name: telegraf
