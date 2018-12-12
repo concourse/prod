@@ -81,11 +81,9 @@ networks:
       tags: [internal]
 
 - name: test
-  type: manual
+  type: dynamic
   subnets:
-  - range: 10.244.0.0/16
-    gateway: 10.244.0.1
-    az: z1
+  - az: z1
     cloud_properties:
       network_name: bosh
       subnetwork_name: test
