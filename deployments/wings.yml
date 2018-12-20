@@ -100,6 +100,9 @@ instance_groups:
       authorize_generated_worker_key: false
       authorized_keys: [((worker_key.public_key))]
       team_authorized_keys:
+      - team: cf-identity-uaa
+        ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvh2uClwWSGIUjvYj5pBe31X/nAYfcS3qFEO8vIdeE0mdBX1Ag84pKp8vudGb7YnaJP6U63xhONI26BwT086VATunFFCdbTO8SPd8Jdj3dumNeNALD8PRKo/JVbICQ7vQs07MSCpUK9p+TK1GJ1BnrPgNtsd/NvjqZr14GqZ7FHojzDpxyJZUxxLkIgm4cVh49sUoddrBj/K+2lSKN5c/1ovbeOM4hqfucOEofXImZPOZv8GneICT02fDHO4cDU2zUPUv3UCwsW+Li1K7nAdNEg6QkCuqkx1V3tZrDjvyNdclaDr4ExzFHg3sUcrwOKKmjST7ZTEMbyOPDN22gfKpX
+
       - team: network-integrations
         ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5dFYQGb165WNrTABjutqc+YLfArZS+00krefQG5d46tdhFZ7SxWnZqPw5s2O9XDwFKfc9MeFNG80WTUMH28qc0m6YDagnwT64xcF6hYshxen/hClv8IIAHX0mS/TSpDl/KMB+TEUMz8fW5v2/GxNDRZqH/ird6z7JLwuh1N9qUT/LKLW091miZcWb6Dnr86aXg076ROgBxb2a+pIRSg+/Peinqb6cRMuN/pMMd3HQBZVlaVIWM3bk094kNFoqlHgZxttkOR9IbS+bs7NqKFK8IrST25H/KDMQ865dqBIpeJU4tVI/SbON8jAHHp6w01TWmbmKkpO/o/eKgEhnkqS/ sparameswaran@Sabhas-MacBook-Pro.local
 
