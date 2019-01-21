@@ -140,7 +140,7 @@ instance_groups:
       - team: mormont-pcf
         ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyo2/1vuyuQkIwCGou5K0CtSZJQbAC0KIeDnudoML7ZyMmHkux1oRaJrQwBg4falWRspVQY7hNARA0rw8VWVOfVx8ZLq7E8K7EbxSbQvI0fQtlU/V6bUt3PJUfLIUcAI0sx2qCPlGwHxsgENVVozqUz/eS2KZIb33f5+kyZhtdfT4HoSRQk2df0XbPWMQAlooylBJjR2Gk6ng/cJO1hUu7OiSJE6MJQ0XUsTgRjbZe3YC3pF849F1TPTGWYbeIQnbG0EdxGy1ysBZSqwUcQy++KAanW4eZp1yKF3bDna/zoVl7p9Z4iPbtaZJQUo7h2xb6w6ZKi32elUdt84mRn88l
 
-      - team: pcf-notifications
+      - team: cf-notifications
         ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcL1zfvMdpysFVaxNDn6aMlj4B05AMZXIRAkMzrA/BbnrCS9mSseXmgwJslxm8putT9jiNdPNB6gc+4UTiSV4MhyJwLXdSD94A+Zr/YwKk4oS1jRj0IgfDQ3wJ7qoF54VliOfrc51ApBsnUz47wi6xK0LOZ7lZBACPTvIH+rMxPxjv8b8o7DyqcAW5vOj1pvWZbjjX9brNZsFE444Btm9lYaLVJiGBU8XxGwAipYpNKh6dw+NPztQLsMO9pA28Y5yqt4bGEm4bl+MrQoEPykREgzIfptpNc7JaHYuP+E9jOAI7Hr/iJytKFIp0lBH5Sgor/Q6RPgJaDfBDdBb7bw9x
 
   - name: telegraf-agent
