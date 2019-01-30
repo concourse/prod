@@ -1,0 +1,70 @@
+---
+name: concourse-wings-strabo-worker
+
+releases:
+- name: concourse
+  version: latest
+- name: garden-runc
+  version: latest
+- name: telegraf-agent
+  version: latest
+- name: syslog
+  version: latest
+
+addons:
+- name: syslog_forwarder
+  include:
+    stemcell:
+    - os: ubuntu-trusty
+    - os: ubuntu-xenial
+  jobs:
+  - name: syslog_forwarder
+    release: syslog
+    properties:
+      syslog:
+        address: logs5.papertrailapp.com
+        custom_rule: 'if ($programname startswith "vcap.") then stop
+
+'
+        permitted_peer: "*.papertrailapp.com"
+        port: 40515
+        tls_enabled: true
+        transport: tcp
+
+instance_groups:
+- name: worker-strabo
+  instances: 1
+  azs: [az1]
+  vm_type: wings_worker
+  stemcell: xenial
+  networks: [{name: strabo-private}]
+  jobs:
+  - name: worker
+    release: concourse
+    consumes: {baggageclaim: {from: worker-baggageclaim}}
+    properties:
+      tags: [strabo]
+      tsa:
+        host: wings.pivotal.io
+        port: 2222
+        host_public_key: ((tsa_host_key.public_key))
+        worker_key: ((worker_key))
+        registration_mode: forward
+      garden:
+        address: 127.0.0.1:7777
+        forward_address: 127.0.0.1:7777
+      baggageclaim:
+        forward_address: 127.0.0.1:7788
+  - name: baggageclaim
+    release: concourse
+    provides: {baggageclaim: {as: worker-baggageclaim}}
+    properties:
+      bind_ip: 127.0.0.1
+  - name: garden
+    release: garden-runc
+    properties:
+      garden:
+        forward_address: 127.0.0.1:7777
+        listen_network: tcp
+        listen_address: 127.0.0.1:7777
+
