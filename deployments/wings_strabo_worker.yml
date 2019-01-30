@@ -1,0 +1,66 @@
+---
+name: concourse-wings-strabo-worker
+
+releases:
+- name: concourse
+  version: latest
+- name: telegraf-agent
+  version: latest
+- name: syslog
+  version: latest
+
+stemcells:
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest
+
+addons:
+- name: syslog_forwarder
+  include:
+    stemcell:
+    - os: ubuntu-trusty
+    - os: ubuntu-xenial
+  jobs:
+  - name: syslog_forwarder
+    release: syslog
+    properties:
+      syslog:
+        address: logs5.papertrailapp.com
+        custom_rule: 'if ($programname startswith "vcap.") then stop
+
+'
+        permitted_peer: "*.papertrailapp.com"
+        port: 40515
+        tls_enabled: true
+        transport: tcp
+
+instance_groups:
+- name: worker-strabo
+  instances: 1
+  azs: [z1]
+  vm_type: wings_worker
+  stemcell: xenial
+  networks: [{name: strabo-private}]
+  jobs:
+  - name: worker
+    release: concourse
+    properties:
+      team: cf-tools
+      worker_gateway:
+        hosts: ["wings.pivotal.io:2222"]
+        host_public_key: ((tsa_host_key.public_key))
+        worker_key: ((worker_key))
+        registration_mode: forward
+      garden:
+        address: 127.0.0.1:7777
+        forward_address: 127.0.0.1:7777
+      baggageclaim:
+        log_level: debug
+        driver: btrfs
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
