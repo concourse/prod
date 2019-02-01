@@ -44,6 +44,16 @@ networks:
       subnetwork_name: internal
       tags: [internal]
 
+- name: drills
+  subnets:
+  - azs: [z1, z2]
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: drills
+      tags:
+      - drills
+  type: dynamic
+
 - name: vault
   type: manual
   subnets:
