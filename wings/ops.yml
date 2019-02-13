@@ -1,0 +1,60 @@
+- type: replace
+  path: /releases/-
+  value:
+    name: telegraf-agent
+    version: latest
+
+- type: replace
+  path: /instance_groups/name=web/jobs/-
+  value:
+    name: telegraf-agent
+    release: telegraf-agent
+    properties:
+      influxdb:
+        url: http://10.2.0.2:8086
+        database: wings
+        username: concourse
+        password: concourse
+      inputs:
+        procstat:
+          exe: atc
+
+- type: replace
+  path: /instance_groups/-
+  value:
+    name: db-metrics
+    instances: 1
+    vm_type: tiny
+    stemcell: xenial
+    networks: [{name: private}]
+    azs: [z1]
+    jobs:
+    - name: telegraf-agent
+      release: telegraf-agent
+      properties:
+        influxdb:
+          url: http://10.2.0.2:8086
+          database: concourse
+          username: concourse
+          password: concourse
+        inputs:
+          postgresql:
+            address: 'postgres://atc:((db_password))@104.198.42.60/atc?sslmode=disable'
+          # postgresql_extensible:
+          #   address: 'postgres://atc:((db_password))@104.198.42.60/atc?sslmode=disable'
+          #   outputaddress: wings
+          #   queries:
+          #   - measurement: "postgresql slow queries"
+          #     query: |
+          #       SELECT
+          #         total_time / calls AS avg_time,
+          #         calls,
+          #         total_time,
+          #         rows,
+          #         100.0 * shared_blks_hit / nullif(shared_blks_hit + shared_blks_read, 0) AS hit_percent,
+          #         regexp_replace(query, '[\s\t\n]+', ' ', 'g') AS query
+          #       FROM pg_stat_statements
+          #       WHERE query NOT LIKE '%EXPLAIN%'
+          #       ORDER BY avg_time DESC LIMIT 50
+          #     version: 901
+          #     tags: ["query"]
