@@ -44,16 +44,6 @@ networks:
       subnetwork_name: internal
       tags: [internal]
 
-- name: drills
-  subnets:
-  - azs: [z1, z2]
-    cloud_properties:
-      network_name: bosh
-      subnetwork_name: drills
-      tags:
-      - drills
-  type: dynamic
-
 - name: vault
   type: manual
   subnets:
@@ -249,6 +239,10 @@ vm_extensions:
 - name: prop-web-target-pool
   cloud_properties:
     target_pool: prop-web-target-pool
+
+- name: drills-web-target-pool
+  cloud_properties:
+    target_pool: drills-web-target-pool
 
 compilation:
   workers: 3

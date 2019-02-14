@@ -43,6 +43,16 @@ resource "google_dns_record_set" "ci-concourse-ci-org-dns" {
   rrdatas = ["${google_compute_forwarding_rule.concourse-web.ip_address}"]
 }
 
+resource "google_dns_record_set" "drills-concourse-ci-org-dns" {
+  name = "drills.${google_dns_managed_zone.concourse-ci-org.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+
+  rrdatas = ["${google_compute_forwarding_rule.drills-web.ip_address}"]
+}
+
 resource "google_dns_record_set" "bosh-concourse-ci-org-dns" {
   name = "bosh.${google_dns_managed_zone.concourse-ci-org.dns_name}"
   type = "A"
