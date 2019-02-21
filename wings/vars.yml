@@ -15,7 +15,7 @@ syslog_address: logs5.papertrailapp.com
 worker_rebalance_interval: 1h
 
 update_max_in_flight: 1
-worker_update_max_in_flight: 10
+worker_update_max_in_flight: 4
 
 container_placement_strategy: random
 
