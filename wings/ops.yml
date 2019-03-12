@@ -17,7 +17,22 @@
         password: concourse
       inputs:
         procstat:
-          exe: atc
+          exe: web
+
+- type: replace
+  path: /instance_groups/name=worker/jobs/-
+  value:
+    name: telegraf-agent
+    release: telegraf-agent
+    properties:
+      influxdb:
+        url: http://10.2.0.2:8086
+        database: wings
+        username: concourse
+        password: concourse
+      inputs:
+        procstat:
+          exe: worker
 
 - type: replace
   path: /instance_groups/-
