@@ -17,7 +17,7 @@
         password: concourse
       inputs:
         procstat:
-          exe: web
+          exe: concourse
 
 - type: replace
   path: /instance_groups/name=worker/jobs/-
@@ -32,7 +32,7 @@
         password: concourse
       inputs:
         procstat:
-          exe: worker
+          exe: concourse
 
 - type: replace
   path: /instance_groups/-
