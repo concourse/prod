@@ -1,10 +1,4 @@
 - type: replace
-  path: /releases/-
-  value:
-    name: telegraf-agent
-    version: latest
-
-- type: replace
   path: /instance_groups/name=web/jobs/-
   value:
     name: telegraf-agent
