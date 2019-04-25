@@ -35,15 +35,6 @@ networks:
       subnetwork_name: internal
       tags: [internal]
 
-- name: strabo-private
-  type: dynamic
-  subnets:
-  - azs: [z1, z2]
-    cloud_properties:
-      network_name: bosh
-      subnetwork_name: internal
-      tags: [internal]
-
 - name: vault
   type: manual
   subnets:
