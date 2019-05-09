@@ -27,3 +27,7 @@
       inputs:
         procstat:
           exe: concourse
+
+- type: replace
+  path: /instance_groups/name=db/jobs/name=postgres/properties/databases/additional_config?/max_parallel_workers_per_gather
+  value: 0
