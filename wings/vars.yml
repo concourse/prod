@@ -49,7 +49,7 @@ influxdb_auth:
   password: concourse
 
 team_authorized_keys:
-  cf-identity-uaa: |
+  cf-uaa: |
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvh2uClwWSGIUjvYj5pBe31X/nAYfcS3qFEO8vIdeE0mdBX1Ag84pKp8vudGb7YnaJP6U63xhONI26BwT086VATunFFCdbTO8SPd8Jdj3dumNeNALD8PRKo/JVbICQ7vQs07MSCpUK9p+TK1GJ1BnrPgNtsd/NvjqZr14GqZ7FHojzDpxyJZUxxLkIgm4cVh49sUoddrBj/K+2lSKN5c/1ovbeOM4hqfucOEofXImZPOZv8GneICT02fDHO4cDU2zUPUv3UCwsW+Li1K7nAdNEg6QkCuqkx1V3tZrDjvyNdclaDr4ExzFHg3sUcrwOKKmjST7ZTEMbyOPDN22gfKpX
 
   network-integrations: |
