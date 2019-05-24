@@ -25,12 +25,12 @@ resource "google_dns_record_set" "concourse-ci-org-dns" {
 
 resource "google_dns_record_set" "www-concourse-ci-org-dns" {
   name = "www.${google_dns_managed_zone.concourse-ci-org.dns_name}"
-  type = "CNAME"
+  type = "A"
   ttl  = 300
 
   managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
 
-  rrdatas = ["concourse-ci.org-ba2b4e91.ssl.run.pivotal.io."]
+  rrdatas = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
 }
 
 resource "google_dns_record_set" "ci-concourse-ci-org-dns" {
@@ -95,12 +95,12 @@ resource "google_dns_record_set" "telemetry-concourse-ci-org-dns" {
 
 resource "google_dns_record_set" "project-concourse-ci-org-dns" {
   name = "project.${google_dns_managed_zone.concourse-ci-org.dns_name}"
-  type = "CNAME"
+  type = "A"
   ttl  = 300
 
   managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
 
-  rrdatas = ["concourse-ci.org-ba2b4e91.ssl.run.pivotal.io."]
+  rrdatas = ["35.241.0.130"]
 }
 
 resource "google_dns_record_set" "metrics-concourse-ci-org-dns" {
