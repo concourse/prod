@@ -36,10 +36,10 @@
 - type: replace
   path: /instance_groups/name=db/jobs/name=postgres/properties/databases/additional_config?
   value:
-    shared_buffers: 262144
-    effective_cache_size: 917504
+    shared_buffers: 589824
+    effective_cache_size: 1179648
     checkpoint_completion_target: 0.9
     default_statistics_target: 1000
-    work_mem: 8192
-    maintenance_work_mem: 131072
+    work_mem: 10240
+    maintenance_work_mem: 262144
     random_page_cost: 3
