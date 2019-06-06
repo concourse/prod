@@ -188,7 +188,7 @@ vm_types:
   network: concourse
   cloud_properties:
     cpu: 4
-    ram: 26624
+    ram: 32768
 
 - name: airbus
   cloud_properties:
