@@ -29,7 +29,7 @@
           exe: concourse
 
 - type: replace
-  path: /instance_groups/name=worker/jobs/name=untrusted-worker/properties/baggageclaim?/driver?
+  path: /instance_groups/name=untrusted-worker/jobs/name=worker/properties/baggageclaim?/driver?
   value: overlay
 
 - type: replace
