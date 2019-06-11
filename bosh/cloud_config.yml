@@ -239,9 +239,9 @@ vm_extensions:
   cloud_properties:
     target_pool: algorithm-web-target-pool
 
-- name: ephemeral-check-web-target-pool
+- name: runtime-drills-web-target-pool
   cloud_properties:
-    target_pool: ephemeral-check-web-target-pool
+    target_pool: runtime-drills-web-target-pool
 
 compilation:
   workers: 3
