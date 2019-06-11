@@ -7,7 +7,7 @@ web_vm_type: web
 worker_vm_type: wings_worker
 web_network_name: web
 web_network_vm_extension: wings-web-target-pool
-storage_driver: btrfs
+storage_driver: overlay
 syslog_permitted_peer: "*.papertrailapp.com"
 syslog_port: 40515
 syslog_address: logs5.papertrailapp.com
