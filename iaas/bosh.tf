@@ -102,7 +102,7 @@ resource "google_compute_firewall" "concourse-vault" {
   }
 
   target_tags = ["vault"]
-  source_tags = ["concourse-web", "director"]
+  source_tags = ["concourse-web", "director", "internal"]
 }
 
 resource "google_compute_instance" "nat" {
