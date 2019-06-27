@@ -52,6 +52,12 @@
     random_page_cost: 3
 
 - type: replace
+  path: /releases/-
+  value:
+    name: vault
+    version: latest
+
+- type: replace
   path: /instance_groups/-
   value:
     name: vault
