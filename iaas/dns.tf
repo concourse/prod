@@ -73,6 +73,16 @@ resource "google_dns_record_set" "discuss-concourse-ci-org-dns" {
   rrdatas = ["concourseci1.hosted-by-discourse.com."]
 }
 
+resource "google_dns_record_set" "blog-concourse-ci-org-dns" {
+  name = "blog.${google_dns_managed_zone.concourse-ci-org.dns_name}"
+  type = "CNAME"
+  ttl  = 300
+
+  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+
+  rrdatas = ["concourse.ghost.io."]
+}
+
 resource "google_dns_record_set" "vault-concourse-ci-org-dns" {
   name = "vault.${google_dns_managed_zone.concourse-ci-org.dns_name}"
   type = "A"
