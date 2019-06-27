@@ -63,7 +63,7 @@
     name: vault
     instances: 1
     vm_type: vault
-    stemcell: trusty
+    stemcell: xenial
     networks:
     - name: vault
       static_ips: [10.3.0.2]
