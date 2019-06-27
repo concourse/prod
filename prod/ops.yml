@@ -50,3 +50,35 @@
     work_mem: 10240
     maintenance_work_mem: 262144
     random_page_cost: 3
+
+- type: replace
+  path: /instance_groups/-
+  value:
+    name: vault
+    instances: 1
+    vm_type: vault
+    stemcell: trusty
+    networks:
+    - name: vault
+      static_ips: [10.3.0.2]
+    azs: [z1]
+    persistent_disk_type: large
+    jobs:
+    - release: vault
+      name: vault
+      properties:
+        tls:
+          certificate: ((vault_cert.certificate))
+          private_key: ((vault_cert.private_key))
+
+- type: replace
+  path: /variables/-
+  value:
+    name: vault_cert
+    type: certificate
+    options:
+      is_ca: true
+      common_name: 10.3.0.2
+      alternative_names:
+      - ((vault_host))
+      - 127.0.0.1
