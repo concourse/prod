@@ -1,4 +1,5 @@
 deployment_name: concourse-wings
+cluster_name: Wings
 web_instances: 4
 worker_instances: 30
 external_url: "https://wings.pivotal.io"
