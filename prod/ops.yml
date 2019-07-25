@@ -27,6 +27,10 @@
       inputs:
         procstat:
           exe: concourse
+        disk:
+          mount_points: ["/var/vcap/data"]
+        net:
+          interfaces: ["eth0"]
 
 - type: replace
   path: /instance_groups/name=untrusted-worker/jobs/name=worker/properties/baggageclaim?/driver?
