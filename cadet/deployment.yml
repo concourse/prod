@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cadet
-        image: gcr.io/cf-concourse-production/cadet:16
+        image: gcr.io/cf-concourse-production/cadet:17
         ports:
         - containerPort: 8000
 
