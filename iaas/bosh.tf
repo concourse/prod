@@ -31,6 +31,12 @@ resource "google_compute_subnetwork" "vault" {
   network       = "${google_compute_network.bosh.self_link}"
 }
 
+resource "google_compute_subnetwork" "internal-wings-credhub" {
+  name          = "internal-wings-credhub"
+  ip_cidr_range = "10.5.0.0/16"
+  network       = "${google_compute_network.bosh.self_link}"
+}
+
 resource "google_compute_subnetwork" "windows" {
   name          = "windows"
   ip_cidr_range = "10.95.0.0/16"

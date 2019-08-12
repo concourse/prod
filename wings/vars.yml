@@ -3,6 +3,7 @@ cluster_name: Wings
 web_instances: 4
 worker_instances: 30
 external_url: "https://wings.pivotal.io"
+credhub_uaa_hostname: credhub.wings.pivotal.io
 network_name: private
 web_vm_type: web
 worker_vm_type: wings_worker

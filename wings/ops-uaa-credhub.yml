@@ -1,0 +1,203 @@
+---
+- type: replace
+  path: /instance_groups/name=web/jobs/name=web/properties/credhub?
+  value:
+    url: "https://((credhub_uaa_hostname)):8844"
+    client_id: "concourse_client"
+    client_secret: "((concourse_credhub_client_secret))"
+
+
+- type: replace
+  path: /instance_groups/-
+  value:
+    name: credhub-uaa
+    azs:
+    - z1
+    instances: 1
+    vm_type: uaa
+    persistent_disk_type: large
+    stemcell: default
+    networks:
+    - name: internal-wings
+    vm_extensions:
+      - wings-credhub-uaa-target-pool
+    jobs:
+    - name: uaa
+      release: uaa
+      properties:
+        encryption:
+          active_key_label: 'key-1'
+          encryption_keys:
+            - label: 'key-1'
+              passphrase: "((uaa_encryption_key))"
+        login:
+          saml:
+            serviceProviderCertificate: "((uaa_login_saml.certificate))"
+            serviceProviderKey: "((uaa_login_saml.private_key))"
+          branding:
+            company_name: "Concourse Wings"
+        uaa:
+          clients:
+            admin:
+              authorized-grant-types: client_credentials
+              scope: uaa.none
+              authorities: uaa.admin,clients.read,clients.write,clients.secret,scim.read,scim.write,clients.admin
+              secret: "((uaa_admin_client_secret))"
+            credhub_cli:
+              authorized-grant-types: password,refresh_token
+              authorities: uaa.none
+              scope: credhub.read,credhub.write
+              secret: "" # credhub expects this to be empty
+              access-token-validity: 120
+              refresh-token-validity: 1800
+              override: true
+            concourse_client:
+              authorized-grant-types: client_credentials
+              authorities: uaa.none
+              scope: credhub.read,credhub.write
+              secret: "((concourse_credhub_client_secret))"
+              access-token-validity: 120
+              refresh-token-validity: 1800
+              override: true
+          jwt:
+            policy:
+              active_key_id: key-1
+              keys:
+                key-1:
+                  signingKey: "((uaa_jwt_signing_key.private_key))"
+          scim:
+            users:
+              - name: admin
+                password: "((cf_admin_password))"
+                groups:
+                  - uaa.admin
+              - name: credhub
+                password: "((credhub_user_password))"
+                groups:
+                  - credhub.read
+                  - credhub.write
+          sslCertificate: "((uaa_ssl.certificate))"
+          sslPrivateKey: "((uaa_ssl.private_key))"
+          url: "https://((credhub_uaa_hostname)):8443"
+        uaadb:
+          address: 104.154.192.148
+          tls: disabled
+          databases:
+          - name: uaadb
+            tag: uaa
+          db_scheme: postgres
+          port: 5432
+          roles:
+          - name: uaaadmin
+            password: ((uaaadmin_db_password))
+            tag: admin
+    - name: bpm
+      release: bpm
+    - name: credhub
+      release: credhub
+      properties:
+        credhub:
+          port: 8844
+          tls:
+            certificate: "((credhub_ssl.certificate))"
+            private_key: "((credhub_ssl.private_key))"
+          data_storage:
+            type: postgres
+            username: credhubadmin
+            password: ((credhubadmin_db_password))
+            host: 104.154.192.148
+            port: 5432
+            database: credhubdb
+            require_tls: false
+          authentication:
+            uaa:
+              ca_certs:
+                - "((uaa_ssl.certificate))"
+              enabled: true
+              url: "https://((credhub_uaa_hostname)):8443"
+          encryption:
+            keys:
+              - provider_name: internal-provider
+                key_properties:
+                  encryption_password: "((credhub_encryption_key))"
+                active: true
+            providers:
+              - name: internal-provider
+                type: internal
+          authorization:
+            acls:
+              enabled: true
+            permissions:
+              - path: /*
+                actors:
+                  - uaa-user:20775a1f-7ba5-4395-b837-bdbf42ad22e0 # This is the ID of the 'credhub' user
+                  - uaa-client:concourse_client
+                operations:
+                  - read
+                  - write
+                  - delete
+                  - read_acl
+                  - write_acl
+
+- type: replace
+  path: /releases/-
+  value:
+    name: uaa
+    version: "74.0.0"
+    url: "https://bosh.io/d/github.com/cloudfoundry/uaa-release?v=74.0.0"
+
+- type: replace
+  path: /releases/-
+  value:
+    name: bpm
+    version: "1.0.4"
+    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.4"
+
+- type: replace
+  path: /releases/-
+  value:
+    name: credhub
+    version: "2.5.0"
+    url: "https://bosh.io/d/github.com/pivotal-cf/credhub-release?v=2.5.0"
+
+- type: replace
+  path: /variables/-
+  value:
+    name: uaa_encryption_key
+    type: password
+
+- type: replace
+  path: /variables/-
+  value:
+    name: uaa_admin_client_secret
+    type: password
+
+- type: replace
+  path: /variables/-
+  value:
+    name: cf_admin_password
+    type: password
+
+- type: replace
+  path: /variables/-
+  value:
+    name: uaa_jwt_signing_key
+    type: rsa
+
+- type: replace
+  path: /variables/-
+  value:
+    name: credhub_client_secret
+    type: password
+
+- type: replace
+  path: /variables/-
+  value:
+    name: credhub_user_password
+    type: password
+
+- type: replace
+  path: /variables/-
+  value:
+    name: credhub_encryption_key
+    type: password

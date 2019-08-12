@@ -100,6 +100,19 @@ networks:
       subnetwork_name: windows
       tags: [internal]
 
+- name: internal-wings
+  type: dynamic
+  subnets:
+  - az: z1
+    cloud_properties:
+      network_name: bosh
+      subnetwork_name: internal-wings
+      tags:
+      - internal
+      - wings-uaa-web
+      - wings-credhub-web
+
+
 disk_types:
 - name: large
   disk_size: 102400
@@ -197,6 +210,14 @@ vm_types:
     root_disk_size_gb: 20
     root_disk_type: pd-ssd
 
+- name: uaa
+  cloud_properties:
+    cpu: 4
+    ram: 8192
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+    zone: us-central1-f
+
 - name: tiny
   cloud_properties:
     cpu: 1
@@ -234,6 +255,11 @@ vm_extensions:
 - name: drills-web-target-pool
   cloud_properties:
     target_pool: drills-web-target-pool
+
+- name: wings-credhub-uaa-target-pool
+  cloud_properties:
+    target_pool: wings-credhub-uaa-target-pool
+
 
 compilation:
   workers: 3
