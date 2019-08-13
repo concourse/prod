@@ -235,10 +235,6 @@ vm_extensions:
   cloud_properties:
     target_pool: drills-web-target-pool
 
-- name: algorithm-web-target-pool
-  cloud_properties:
-    target_pool: algorithm-web-target-pool
-
 compilation:
   workers: 3
   network: private
