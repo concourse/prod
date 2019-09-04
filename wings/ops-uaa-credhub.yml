@@ -9,7 +9,8 @@
 - type: replace
   path: /instance_groups/name=web/jobs/name=web/properties/credhub/tls?
   value:
-    insecure_skip_verify: true
+    ca_cert:
+      certificate: ((credhub_ssl.ca_cert))
 
 - type: replace
   path: /instance_groups/-
