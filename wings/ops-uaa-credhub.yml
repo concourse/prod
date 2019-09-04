@@ -6,6 +6,10 @@
     client_id: "concourse_client"
     client_secret: "((concourse_credhub_client_secret))"
 
+- type: replace
+  path: /instance_groups/name=web/jobs/name=web/properties/credhub/tls?
+  value:
+    insecure_skip_verify: true
 
 - type: replace
   path: /instance_groups/-
@@ -16,9 +20,9 @@
     instances: 1
     vm_type: uaa
     persistent_disk_type: large
-    stemcell: default
+    stemcell: xenial
     networks:
-    - name: internal-wings
+    - name: private
     vm_extensions:
       - wings-credhub-uaa-target-pool
     jobs:
@@ -53,7 +57,7 @@
               override: true
             concourse_client:
               authorized-grant-types: client_credentials
-              authorities: uaa.none
+              authorities: credhub.read,credhub.write
               scope: credhub.read,credhub.write
               secret: "((concourse_credhub_client_secret))"
               access-token-validity: 120
@@ -107,7 +111,7 @@
             password: ((credhubadmin_db_password))
             host: 104.154.192.148
             port: 5432
-            database: credhubdb
+            database: credhub
             require_tls: false
           authentication:
             uaa:
@@ -130,8 +134,9 @@
             permissions:
               - path: /*
                 actors:
-                  - uaa-user:20775a1f-7ba5-4395-b837-bdbf42ad22e0 # This is the ID of the 'credhub' user
                   - uaa-client:concourse_client
+                  - uaa-client:credhub_cli
+                  - uaa-user:7ad5b8f7-fe2f-44a0-bc08-b8ab03435c68
                 operations:
                   - read
                   - write
@@ -145,13 +150,6 @@
     name: uaa
     version: "74.0.0"
     url: "https://bosh.io/d/github.com/cloudfoundry/uaa-release?v=74.0.0"
-
-- type: replace
-  path: /releases/-
-  value:
-    name: bpm
-    version: "1.0.4"
-    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.4"
 
 - type: replace
   path: /releases/-
@@ -187,6 +185,12 @@
 - type: replace
   path: /variables/-
   value:
+    name: concourse_credhub_client_secret
+    type: password
+
+- type: replace
+  path: /variables/-
+  value:
     name: credhub_client_secret
     type: password
 
@@ -201,3 +205,4 @@
   value:
     name: credhub_encryption_key
     type: password
+
