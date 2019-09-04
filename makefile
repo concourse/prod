@@ -1,5 +1,6 @@
 CREDHUB_URL		?= credhub.wings.pivotal.io
 DEPLOYMENT_MANIFEST	?=
+PROD_PATH		?= $(shell pwd)
 
 deploy-%:
 	rm -rf secrets.yml
@@ -7,7 +8,7 @@ deploy-%:
 	lpass show "Shared-Concourse/concourse-credhub-uaa" --notes > secrets.yml
 
 	bosh -e prod deploy -d $* \
-	-o ~/workspace/prod-temp/wings/ops-uaa-credhub.yml \
-	-l ~/workspace/prod-temp/secrets.yml \
+	-o $(PROD_PATH)/wings/ops-uaa-credhub.yml \
+	-l $(PROD_PATH)/secrets.yml \
 	-v credhub_uaa_hostname=$(CREDHUB_URL) \
 	$(DEPLOYMENT_MANIFEST)
