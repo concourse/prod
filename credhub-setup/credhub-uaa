@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# All of these are located in lpass 'Shared-Concourse/concourse-credhub-uaa
+# Everything expect the encryption keys can be rolled if redeploying from scratch
+credhub set -n /concourse-prod-bosh/credhub-uaa/uaa_ssl --type=rsa -u=./uaa_cert -p=./uaa_private
+
+credhub set -n /concourse-prod-bosh/credhub-uaa/credhub_ssl --type=rsa -u=./uaa_cert -p=./uaa_private
+
+credhub set -n /concourse-prod-bosh/credhub-uaa/uaaadmin_db_password --type=password -w='<password>'
+
+credhub set -n /concourse-prod-bosh/credhub-uaa/credhub_encryption_key --type=password -w='<password>'
+
+credhub set -n /concourse-prod-bosh/credhub-uaa/uaa_encryption_key --type=password -w='<password>'
