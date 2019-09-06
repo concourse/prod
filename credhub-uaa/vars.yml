@@ -1,0 +1,6 @@
+---
+deployment_name: credhub-uaa
+credhub_url: "https://credhub.wings.pivotal.io:8443"
+uaa_version: "74.0.0"
+credhub_version: "2.5.0"
+bpm_version: "1.0.4"
