@@ -33,6 +33,8 @@ bosh create-env bosh-deployment/bosh.yml \
   -v network=bosh \
   -v subnetwork=director \
   -v tags=[director] \
+  -v director_workers=24 \
+  -v postgres_max_connections=300 \
   --var-file gcp_credentials_json=iaas/terraform.key.json \
   -o bosh-deployment/syslog.yml \
   -o bosh-deployment/uaa.yml \
@@ -49,5 +51,6 @@ bosh create-env bosh-deployment/bosh.yml \
   -o bosh/ops/uaa-external-dns.yml \
   -o bosh/ops/unset-config-server-uaa-ca.yml \
   -o bosh/ops/workers.yml \
+  -o bosh/ops/director-db.yml \
   -l bosh/bosh-deployment-vars.yml \
   -l bosh/bosh-tf-vars.yml
