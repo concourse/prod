@@ -1,0 +1,51 @@
+- path: /releases/-
+  type: replace
+  value:
+    name: bosh-azure-cpi
+    sha1: 7bfcec67dbb31283cc4a9387028e2c85d10c245c
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=36.0.1
+- path: /resource_pools/name=vms/stemcell?
+  type: replace
+  value:
+    sha1: 507722d1b6a829b99d8739e56399c71d0c52fbb2
+    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=456.12
+- path: /resource_pools/name=vms/cloud_properties?
+  type: replace
+  value:
+    instance_type: Standard_D1_v2
+- path: /networks/name=private/subnets/0/cloud_properties?
+  type: replace
+  value:
+    resource_group_name: ((resource_group_name))
+    subnet_name: ((subnet_name))
+    virtual_network_name: ((vnet_name))
+- path: /networks/name=public/subnets?/-
+  type: replace
+  value:
+    cloud_properties:
+      resource_group_name: ((resource_group_name))
+- path: /cloud_provider/template?
+  type: replace
+  value:
+    name: azure_cpi
+    release: bosh-azure-cpi
+- path: /cloud_provider/ssh_tunnel?
+  type: replace
+  value:
+    host: ((external_ip))
+    port: 22
+    private_key: ((private_key))
+    user: vcap
+- path: /cloud_provider/properties/azure?
+  type: replace
+  value:
+    client_id: ((client_id))
+    client_secret: ((client_secret))
+    default_security_group: ((default_security_group))
+    environment: AzureCloud
+    resource_group_name: ((resource_group_name))
+    ssh_public_key: ((public_key))
+    ssh_user: vcap
+    storage_account_name: ((storage_account_name))
+    subscription_id: ((subscription_id))
+    tenant_id: ((tenant_id))

@@ -1,0 +1,67 @@
+- name: cpi
+  path: /releases/-
+  type: replace
+  value:
+    name: bosh-vsphere-cpi
+    sha1: dc04b664641e95c045e93d84a0444ea8f7d0cae0
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=53.0.1
+    version: 53.0.1
+- name: stemcell
+  path: /resource_pools/name=vms/stemcell?
+  type: replace
+  value:
+    sha1: 2b5aa0c51fb0bead9d36b2adb7514de719476363
+    url: https://s3.amazonaws.com/bosh-core-stemcells/456.12/bosh-stemcell-456.12-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+- path: /resource_pools/name=vms/cloud_properties?
+  type: replace
+  value:
+    cpu: 2
+    disk: 40000
+    ram: 4096
+- path: /networks/name=default/subnets/0/cloud_properties?
+  type: replace
+  value:
+    name: ((network_name))
+- path: /instance_groups/name=bosh/jobs/-
+  type: replace
+  value:
+    name: vsphere_cpi
+    release: bosh-vsphere-cpi
+- path: /instance_groups/name=bosh/properties/director/cpi_job?
+  type: replace
+  value: vsphere_cpi
+- path: /cloud_provider/template?
+  type: replace
+  value:
+    name: vsphere_cpi
+    release: bosh-vsphere-cpi
+- path: /instance_groups/name=bosh/properties/vcenter?
+  type: replace
+  value:
+    address: ((vcenter_ip))
+    datacenters:
+    - clusters:
+      - ((vcenter_cluster)): {}
+      datastore_pattern: ((vcenter_ds))
+      disk_path: ((vcenter_disks))
+      name: ((vcenter_dc))
+      persistent_datastore_pattern: ((vcenter_ds))
+      template_folder: ((vcenter_templates))
+      vm_folder: ((vcenter_vms))
+    password: ((vcenter_password))
+    user: ((vcenter_user))
+- path: /cloud_provider/properties/vcenter?
+  type: replace
+  value:
+    address: ((vcenter_ip))
+    datacenters:
+    - clusters:
+      - ((vcenter_cluster)): {}
+      datastore_pattern: ((vcenter_ds))
+      disk_path: ((vcenter_disks))
+      name: ((vcenter_dc))
+      persistent_datastore_pattern: ((vcenter_ds))
+      template_folder: ((vcenter_templates))
+      vm_folder: ((vcenter_vms))
+    password: ((vcenter_password))
+    user: ((vcenter_user))

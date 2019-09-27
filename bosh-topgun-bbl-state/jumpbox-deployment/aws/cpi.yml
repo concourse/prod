@@ -1,0 +1,43 @@
+- path: /releases/-
+  type: replace
+  value:
+    name: bosh-aws-cpi
+    sha1: a0abf8f9bdeef2ea8b807fe78a6d20dfd0e34f78
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=77
+- path: /resource_pools/name=vms/stemcell?
+  type: replace
+  value:
+    sha1: 3611f8fd14249147fb6fa7e086f0dd1975a13463
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=456.12
+- path: /resource_pools/name=vms/cloud_properties?
+  type: replace
+  value:
+    availability_zone: ((az))
+    ephemeral_disk:
+      size: 20000
+      type: gp2
+    instance_type: t2.micro
+- path: /networks/name=private/subnets/0/cloud_properties?
+  type: replace
+  value:
+    subnet: ((subnet_id))
+- path: /cloud_provider/template?
+  type: replace
+  value:
+    name: aws_cpi
+    release: bosh-aws-cpi
+- path: /cloud_provider/ssh_tunnel?
+  type: replace
+  value:
+    host: ((external_ip))
+    port: 22
+    private_key: ((private_key))
+    user: vcap
+- path: /cloud_provider/properties/aws?
+  type: replace
+  value:
+    access_key_id: ((access_key_id))
+    default_key_name: ((default_key_name))
+    default_security_groups: ((default_security_groups))
+    region: ((region))
+    secret_access_key: ((secret_access_key))
