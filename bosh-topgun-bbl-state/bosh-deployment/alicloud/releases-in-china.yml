@@ -1,6 +1,0 @@
----
-
-# CPI
-- type: replace
-  path: /releases/name=bosh-alicloud-cpi/url?
-  value: https://bosh.oss-cn-hangzhou.aliyuncs.com/bosh-alicloud-cpi-release-24.0.0.tgz
