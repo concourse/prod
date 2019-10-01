@@ -5,6 +5,4 @@ bosh-tf-vars.yml
 bosh-deployment-vars.yml
 bosh-generated-creds.yml
 keypair/id_rsa
-bosh-topgun-bbl-state/vars
-bosh-topgun-bbl-state/bbl-state.json
-bosh-topgun-bbl-state/topgun-gcp-key.json
+bosh-topgun-bbl-state

@@ -15,7 +15,7 @@ bosh create-env \
   --var-file  gcp_credentials_json="${BBL_GCP_SERVICE_ACCOUNT_KEY_PATH}" \
   -v  project_id="${BBL_GCP_PROJECT_ID}" \
   -v  zone="${BBL_GCP_ZONE}" \
-  -v  director_workers=8 \
+  -v  director_workers=32 \
   --var-file  agent_gcs_credentials_json="${BBL_GCP_SERVICE_ACCOUNT_KEY_PATH}" \
   --var-file  director_gcs_credentials_json="${BBL_GCP_SERVICE_ACCOUNT_KEY_PATH}" \
   -v  bucket_name="topgun-blobstore"
