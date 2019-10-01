@@ -1,0 +1,46 @@
+- type: replace
+  path: /networks/-
+  value:
+    name: test
+    subnets:
+    - azs:
+      - z1
+      - z2
+      - z3
+      - z4
+      gateway: ((internal_gw))
+      range: ((internal_cidr))
+      reserved:
+      - ((subnetwork_reserved_ips))
+      static:
+      - ((subnetwork_static_ips))
+      cloud_properties:
+        ephemeral_external_ip: true
+        network_name: ((network))
+        subnetwork_name: ((subnetwork))
+        tags:
+        - ((open_tag_name))
+        - ((internal_tag_name))
+    type: manual
+
+- type: replace
+  path: /vm_types/-
+  value:
+    name: test
+    cloud_properties:
+      cpu: 4
+      ram: 8192
+      root_disk_size_gb: 100
+      root_disk_type: pd-ssd
+      zone: us-central1-f
+
+- type: replace
+  path: /vm_types/-
+  value:
+    name: worker
+    cloud_properties:
+      cpu: 8
+      ram: 16384
+      root_disk_size_gb: 1000
+      root_disk_type: pd-ssd
+

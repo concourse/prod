@@ -1,0 +1,45 @@
+---
+name: topgun-worker
+
+releases:
+- name: concourse
+  version: 5.5.0
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.5.0
+- name: bpm
+  version: 1.1.3
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.3
+
+instance_groups:
+- name: topgun-worker
+  instances: 1
+  azs: [z1]
+  networks: [{name: default}]
+  stemcell: xenial
+  vm_type: worker
+  jobs:
+  - release: concourse
+    name: worker
+    properties:
+      tags: [topgun]
+      team: main
+      drain_timeout: 10m
+      volume_sweeper_max_in_flight: 3
+      baggageclaim:
+        driver: overlay
+      worker_gateway:
+        rebalance_interval: 30m
+        hosts: ["ci.concourse-ci.org:2222"]
+        host_public_key: ((tsa_host_key))
+        worker_key: ((worker_key))
+
+stemcells:
+- alias: xenial
+  os: ubuntu-xenial
+  version: "456.25"
+
+update:
+  canaries: 1
+  max_in_flight: 3
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
