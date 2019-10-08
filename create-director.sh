@@ -7,6 +7,7 @@ bosh create-env \
   -o  ${BBL_STATE_DIR}/../bosh/ops/workers.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/gcp/cpi.yml \
   -o  ${BBL_STATE_DIR}/../bosh/ops/director-vm-size.yml \
+  -o  ${BBL_STATE_DIR}/../bosh/ops/director-db.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/gcp/gcs-blobstore.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/jumpbox-user.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/uaa.yml \
@@ -16,6 +17,7 @@ bosh create-env \
   -v  project_id="${BBL_GCP_PROJECT_ID}" \
   -v  zone="${BBL_GCP_ZONE}" \
   -v  director_workers=32 \
+  -v  postgres_max_connections=300 \
   --var-file  agent_gcs_credentials_json="${BBL_GCP_SERVICE_ACCOUNT_KEY_PATH}" \
   --var-file  director_gcs_credentials_json="${BBL_GCP_SERVICE_ACCOUNT_KEY_PATH}" \
   -v  bucket_name="topgun-blobstore"
