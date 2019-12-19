@@ -1,7 +1,7 @@
 deployment_name: concourse-wings
 cluster_name: Wings
 web_instances: 4
-worker_instances: 30
+worker_instances: 25
 external_url: "https://wings.pivotal.io"
 network_name: private
 web_vm_type: web
