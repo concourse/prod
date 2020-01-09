@@ -1,0 +1,52 @@
+---
+# This is currently manually deployed.
+
+name: bosh-worker
+
+releases:
+- name: concourse
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.8.0
+  version: 5.8.0
+- name: bpm
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.3
+  version: 1.1.3
+
+stemcells:
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest
+
+instance_groups:
+- name: bosh-worker
+  instances: 1
+  vm_type: worker
+  stemcell: xenial
+  azs: [z1]
+  networks:
+  - name: default
+  jobs:
+  - name: worker
+    release: concourse
+    properties:
+      team: main
+      tags: [bosh]
+
+      baggageclaim:
+        driver: overlay
+
+      drain_timeout: 10m
+
+      worker_gateway:
+        hosts: [ci.concourse-ci.org:2222]
+        rebalance_interval: 30m
+
+        # manually entered into bbl credhub by vito
+        host_public_key: ((host_public_key))
+        worker_key: ((worker_private_key))
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-60000
+  max_in_flight: 3
+  serial: false
+  update_watch_time: 1000-60000
