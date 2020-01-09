@@ -9,7 +9,7 @@ instance_groups:
   - name: worker-windows
     properties:
       worker_gateway:
-        hosts: ["nci.concourse-ci.org:2222"]
+        hosts: ["ci.concourse-ci.org:2222"]
         host_public_key: ((host_public_key))
         worker_key:
           private_key: ((worker_private_key))
