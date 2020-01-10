@@ -112,3 +112,13 @@ resource "google_dns_record_set" "metrics-concourse-ci-org-dns" {
 
   rrdatas = ["${google_compute_forwarding_rule.concourse-metrics.ip_address}"]
 }
+
+resource "google_dns_record_set" "dutyfree-concourse-ci-org-dns" {
+  name = "resource-types.${google_dns_managed_zone.concourse-ci-org.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+
+  rrdatas = ["34.69.234.22"]
+}
