@@ -120,5 +120,5 @@ resource "google_dns_record_set" "dutyfree-concourse-ci-org-dns" {
 
   managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
-  rrdatas = ["34.69.234.22"]
+  rrdatas = ["34.107.223.37"]
 }
