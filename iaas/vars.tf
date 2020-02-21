@@ -1,14 +1,14 @@
 variable "projectid" {
-  type = "string"
+  type = string
   default = "cf-concourse-production"
 }
 
 variable "region" {
-  type = "string"
+  type = string
   default = "us-central1"
 }
 
 variable "zone" {
-  type = "string"
+  type = string
   default = "us-central1-f"
 }

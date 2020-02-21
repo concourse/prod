@@ -1,17 +1,17 @@
 resource "google_compute_target_pool" "wings-web" {
   name = "wings-web-target-pool"
-  health_checks = ["${google_compute_http_health_check.wings-web.name}"]
+  health_checks = [google_compute_http_health_check.wings-web.name]
 }
 
 resource "google_compute_forwarding_rule" "wings-web" {
   name = "wings-web-forwarding-rule"
-  target = "${google_compute_target_pool.wings-web.self_link}"
+  target = google_compute_target_pool.wings-web.self_link
   port_range = "1-65535"
 }
 
 resource "google_compute_firewall" "wings-web" {
   name = "wings-web-firewall"
-  network = "${google_compute_network.bosh.name}"
+  network = google_compute_network.bosh.name
 
   allow {
     protocol = "tcp"

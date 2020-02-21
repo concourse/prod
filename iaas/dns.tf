@@ -14,11 +14,11 @@ resource "google_dns_managed_zone" "concourse-ci-com" {
 }
 
 resource "google_dns_record_set" "concourse-ci-org-dns" {
-  name = "${google_dns_managed_zone.concourse-ci-org.dns_name}"
+  name = google_dns_managed_zone.concourse-ci-org.dns_name
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
 }
@@ -28,7 +28,7 @@ resource "google_dns_record_set" "www-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
 }
@@ -38,9 +38,9 @@ resource "google_dns_record_set" "drills-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
-  rrdatas = ["${google_compute_forwarding_rule.drills-web.ip_address}"]
+  rrdatas = [google_compute_forwarding_rule.drills-web.ip_address]
 }
 
 resource "google_dns_record_set" "bosh-concourse-ci-org-dns" {
@@ -48,9 +48,9 @@ resource "google_dns_record_set" "bosh-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
-  rrdatas = ["${google_compute_address.director.address}"]
+  rrdatas = [google_compute_address.director.address]
 }
 
 resource "google_dns_record_set" "discuss-concourse-ci-org-dns" {
@@ -58,7 +58,7 @@ resource "google_dns_record_set" "discuss-concourse-ci-org-dns" {
   type = "CNAME"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["concourseci1.hosted-by-discourse.com."]
 }
@@ -68,7 +68,7 @@ resource "google_dns_record_set" "blog-concourse-ci-org-dns" {
   type = "CNAME"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["concourse.ghost.io."]
 }
@@ -78,7 +78,7 @@ resource "google_dns_record_set" "vault-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["10.3.0.2"]
 }
@@ -88,7 +88,7 @@ resource "google_dns_record_set" "telemetry-concourse-ci-org-dns" {
   type = "CNAME"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["concourse-telemetry.cfapps.io."]
 }
@@ -98,7 +98,7 @@ resource "google_dns_record_set" "project-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["35.241.0.130"]
 }
@@ -108,9 +108,9 @@ resource "google_dns_record_set" "metrics-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
-  rrdatas = ["${google_compute_forwarding_rule.concourse-metrics.ip_address}"]
+  rrdatas = [google_compute_forwarding_rule.concourse-metrics.ip_address]
 }
 
 resource "google_dns_record_set" "dutyfree-concourse-ci-org-dns" {
@@ -118,7 +118,7 @@ resource "google_dns_record_set" "dutyfree-concourse-ci-org-dns" {
   type = "A"
   ttl  = 300
 
-  managed_zone = "${google_dns_managed_zone.concourse-ci-org.name}"
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
   rrdatas = ["34.69.234.22"]
 }
