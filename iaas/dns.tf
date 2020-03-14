@@ -122,3 +122,13 @@ resource "google_dns_record_set" "dutyfree-concourse-ci-org-dns" {
 
   rrdatas = ["34.107.223.37"]
 }
+
+resource "google_dns_record_set" "hangar-concourse-ci-org-dns" {
+  name = "hangar.${google_dns_managed_zone.concourse-ci-org.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = google_dns_managed_zone.concourse-ci-org.name
+
+  rrdatas = ["34.102.213.12"]
+}
