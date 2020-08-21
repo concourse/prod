@@ -24,9 +24,9 @@ instance_groups:
 name: concourse-prod-windows-worker
 releases:
 - name: concourse
-  version: "6.4.0"
-  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.4.0"
-  sha1: "98fa62d0ef61c9886b824f132189c838f278e7e6"
+  version: "6.5.0"
+  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.5.0"
+  sha1: "deb7cbeaf087fdb9a4a039597c08d655d513f5f6"
 - name: windows-utilities
   sha1: efc10ac0f4acae23637ce2c6f864d20df2e3a781
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/windows-utilities-release?v=0.11.0
