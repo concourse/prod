@@ -1,0 +1,5 @@
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/disks?
+  value: 
+    max_orphaned_age_in_days: 0
+    cleanup_schedule: 15 * * * *

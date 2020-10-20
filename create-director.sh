@@ -8,6 +8,7 @@ bosh create-env \
   -o  ${BBL_STATE_DIR}/bosh-deployment/gcp/cpi.yml \
   -o  ${BBL_STATE_DIR}/../bosh/ops/director-vm-size.yml \
   -o  ${BBL_STATE_DIR}/../bosh/ops/director-db.yml \
+  -o  ${BBL_STATE_DIR}/../bosh/ops/cleanup-orphaned-disks.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/gcp/gcs-blobstore.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/jumpbox-user.yml \
   -o  ${BBL_STATE_DIR}/bosh-deployment/uaa.yml \
