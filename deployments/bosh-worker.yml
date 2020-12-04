@@ -5,11 +5,7 @@ name: bosh-worker
 
 releases:
 - name: concourse
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.8.0
-  version: 5.8.0
-- name: bpm
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.3
-  version: 1.1.3
+  version: 6.7.3-dev.20201203T225930Z.commit.cfc77a2
 
 stemcells:
 - alias: xenial
@@ -37,10 +33,12 @@ instance_groups:
       drain_timeout: 10m
 
       worker_gateway:
-        hosts: [ci.concourse-ci.org:2222]
+        hosts: ["ci.concourse-ci.org:2222"]
         rebalance_interval: 30m
 
         # manually entered into bbl credhub by vito
+        # when deploying, grab the current creds by running `bosh -d bosh-worker manifest > current.yml`
+        # and copying the secrets to a vars-store file.
         host_public_key: ((host_public_key))
         worker_key: ((worker_private_key))
 
