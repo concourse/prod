@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e -u
+
+bosh delete-env bosh-deployment/bosh.yml \
+  --state bosh/bosh-state.json \
+  --vars-store bosh/bosh-deployment-vars.yml \
+  -o bosh-deployment/gcp/cpi.yml \
+  -v director_name=concourse-prod-bosh \
+  -v internal_cidr=10.0.0.0/29 \
+  -v internal_gw=10.0.0.1 \
+  -v internal_ip=10.0.0.6 \
+  -v project_id=${projectid} \
+  -v zone=${zone} \
+  -v network=bosh \
+  -v subnetwork=director \
+  -v tags=[director] \
+  -v director_workers=24 \
+  -v postgres_max_connections=300 \
+  --var-file gcp_credentials_json=iaas/terraform.key.json \
+  -v dns_recursor_ip=169.254.169.254 \
+  -l bosh/bosh-tf-vars.yml

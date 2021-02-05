@@ -4,16 +4,10 @@ set -e -u
 
 projectid=cf-concourse-production
 region=us-central1
-zone=us-central1-f
+zone=us-central1-a
 
-bosh delete-env bosh/bosh.yml \
-  --state bosh/bosh-state.json \
-  -v project_id=${projectid} \
-  -v zone=${zone} \
-  -l bosh/bosh-tf-vars.yml \
-  -l bosh/bosh-private-vars.yml \
-  --vars-store bosh/bosh-generated-creds.yml
-
-terraform destroy --state iaas/terraform.tfstate -var projectid=${projectid} -var region=${region} -var zone=${zone} iaas
-rm iaas/terraform.tfstate
-rm iaas/terraform.key.json
+pushd iaas
+  terraform destroy -state .terraform/terraform.tfstate -var projectid=${projectid} -var region=${region} -var zone=${zone} -force
+  rm .terraform/terraform.tfstate
+  rm terraform.key.json
+popd
