@@ -14,7 +14,7 @@ stemcells:
 
 instance_groups:
 - name: bosh-worker
-  instances: 2
+  instances: 1
   vm_type: worker
   stemcell: xenial
   azs: [z1]
