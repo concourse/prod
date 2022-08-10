@@ -5,18 +5,18 @@ name: bosh-worker
 
 releases:
 - name: concourse
-  version: 7.7.0
+  version: 7.8.2
 
 stemcells:
-- alias: xenial
-  os: ubuntu-xenial
+- alias: jammy
+  os: ubuntu-jammy
   version: latest
 
 instance_groups:
 - name: bosh-worker
   instances: 1
   vm_type: worker
-  stemcell: xenial
+  stemcell: jammy
   azs: [z1]
   networks:
   - name: default
@@ -36,11 +36,13 @@ instance_groups:
         hosts: ["ci.concourse-ci.org:2222"]
         rebalance_interval: 30m
 
-        # manually entered into bbl credhub by vito
+        # manually entered into bbl credhub
+        # credhub set -n /bosh-{bbl env-id}/{deployment name}/worker_key -t rsa -p private_key_file -u pub_key_file
+        # credhub set -n /bosh-{bbl env-id}/{deployment name}/host_public_key -t value -v "host_public_key_value"
         # when deploying, grab the current creds by running `bosh -d bosh-worker manifest > current.yml`
         # and copying the secrets to a vars-store file.
         host_public_key: ((host_public_key))
-        worker_key: ((worker_private_key))
+        worker_key: ((worker_key))
 
 update:
   canaries: 1
