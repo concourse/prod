@@ -70,7 +70,7 @@ resource "google_dns_record_set" "blog-concourse-ci-org-dns" {
 
   managed_zone = google_dns_managed_zone.concourse-ci-org.name
 
-  rrdatas = ["concourse.ghost.io."]
+  rrdatas = ["concourse.github.io."]
 }
 
 resource "google_dns_record_set" "vault-concourse-ci-org-dns" {
