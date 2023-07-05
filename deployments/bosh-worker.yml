@@ -5,7 +5,7 @@ name: bosh-worker
 
 releases:
 - name: concourse
-  version: 7.9.1
+  version: 7.9.2-dev.20230704T071659Z.commit.fadf69d
 
 stemcells:
 - alias: jammy
