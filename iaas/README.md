@@ -1,8 +1,5 @@
 ## Terraform
 
-Don't run `terraform` commands from within this directory. Run all commands
-from the root of this repository.
-
 ### Setup To Run `terraform` Commands
 
 You need a GCP service account key. Create and download one in JSON format
@@ -15,14 +12,14 @@ the file in the `iaas/` directory.
 $ mv ~/Downloads/<name-of-downloaded-gcp-service-key> ./iaas/terraform.key.json
 ```
 
-From the root of this repository you should be able to initialize terraform:
+From the `iaas` directory you should be able to initialize terraform:
 
 ```console
-$ terraform init iaas
+$ terraform init
 ```
 
 and check the plan
 
 ```console
-$ terraform plan iaas
+$ terraform plan
 ```
