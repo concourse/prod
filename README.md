@@ -30,3 +30,15 @@ export BBL_GCP_ZONE=us-central1-f
 ```
 
 Then run `eval "$(bbl print-env)"`. You can now run `bosh` commands.
+
+## Updating the Bosh worker for ci.concourse-ci.org
+
+We only have one bosh worker for CI right now. You can manually deploy it using
+the YAML file in `./deployments`. Edit `bosh-worker.yml` with new release from
+https://bosh.io/releases/github.com/concourse/concourse-bosh-release?all=1 or
+from one of the releases already uploaded. You can see those by running `bosh
+releases`.
+
+```sh
+bosh -d bosh-worker deploy ./deployments/bosh-worker.yml
+```
