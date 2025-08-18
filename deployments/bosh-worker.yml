@@ -5,9 +5,9 @@ name: bosh-worker
 
 releases:
   - name: "concourse"
-    version: "7.14.0"
-    url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.14.0"
-    sha1: sha256:60843184423b5fec267dd5ddaecde3412b5b651e5fe87520466affad2eca2757
+    version: "7.11.2"
+    url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.11.2"
+    sha1: sha256:b4620a7459db91e109fd8c57e9f927b04602769d9ddd7df5dded82d47fc6ab70
 
 stemcells:
   - alias: jammy
