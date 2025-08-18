@@ -17,7 +17,7 @@ stemcells:
 instance_groups:
   - name: bosh-worker
     instances: 1
-    vm_type: worker
+    vm_type: test
     stemcell: jammy
     azs: [z1]
     networks:
@@ -29,6 +29,7 @@ instance_groups:
           team: main
           tags: [bosh]
 
+          runtime: containerd
           baggageclaim:
             driver: overlay
 
