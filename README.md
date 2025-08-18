@@ -29,7 +29,14 @@ export BBL_GCP_PROJECT_ID=cf-concourse-production
 export BBL_GCP_ZONE=us-central1-f
 ```
 
-Then run `eval "$(bbl print-env)"`. You can now run `bosh` commands.
+Then run
+
+```sh
+cd bosh-topgun-bbl-state
+eval "$(bbl print-env)"
+```
+
+You can now run `bosh` commands.
 
 ## Updating the Bosh worker for ci.concourse-ci.org
 
