@@ -4,6 +4,8 @@
 name: bosh-worker
 
 releases:
+  # We can't update the version of this worker past 7.11 until we re-generate
+  # the worker's private key and update it in credhub
   - name: "concourse"
     version: "7.11.2"
     url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.11.2"
